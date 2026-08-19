@@ -134,7 +134,7 @@ async function handleInit(initArgs: string[]): Promise<void> {
     console.log("  tip: re-run with --path to add agy-translate to your shell PATH");
   }
   console.log("");
-  console.log("Translate tier default model: Gemini 3.5 Flash (Low) (via agy -p --model)");
+  console.log("Translate tier default model: Gemini 3.7 Flash (Low) (via agy -p --model)");
   console.log("Lazy read: PreToolUse view_file hook rewrites AbsolutePath to the EN cache");
   console.log("Rules: run `agy-translate agentsmd` or `agy-translate geminimd` to keep English rules synced");
 }

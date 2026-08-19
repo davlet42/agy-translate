@@ -7,9 +7,9 @@ translator:
   # Default: Antigravity CLI print mode — uses existing auth/subscription.
   provider: agy-cli
   # Fast, cheap Gemini translate tier
-  model: Gemini 3.5 Flash (Low)
+  model: Gemini 3.7 Flash (Low)
   # When primary hits rate limits or error, doc cache retries with fallback
-  doc_fallback_model: Gemini 3.7 Flash (Low)
+  doc_fallback_model: Gemini 3.1 Pro (Low)
   # Headless/custom options:
   # provider: claude-cli
   # provider: openai

@@ -21,7 +21,7 @@ function sha256Hex(text) {
 function writeConfig(enabled) {
   writeFileSync(
     join(HOME, "config.yaml"),
-    `enabled: ${enabled}\n\ntranslator:\n  provider: agy-cli\n  model: Gemini 3.5 Flash (Low)\n`,
+    `enabled: ${enabled}\n\ntranslator:\n  provider: agy-cli\n  model: Gemini 3.7 Flash (Low)\n`,
     "utf8",
   );
 }

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-08-19
+
+### Changed
+- Updated default translation tier model to `Gemini 3.7 Flash (Low)` with fallback to `Gemini 3.1 Pro (Low)`.
+- Added automated GitHub Release creation to `.github/workflows/publish.yml`.
+
 ## [0.1.0] - 2026-08-19
 
 ### Added
