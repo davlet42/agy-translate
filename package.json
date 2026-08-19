@@ -1,0 +1,57 @@
+{
+  "name": "agy-translate",
+  "version": "0.1.0",
+  "description": "Token-saving Cyrillic markdown translation layer for Antigravity (agy): fast Gemini translate tier, lazy EN doc cache via PreToolUse hook, AGENTS.md / GEMINI.md sync, MCP and skills",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davlet42/agy-translate.git"
+  },
+  "homepage": "https://github.com/davlet42/agy-translate",
+  "bin": {
+    "agy-translate": "dist/cli.js",
+    "agy-translate-mcp": "dist/mcp-server.js"
+  },
+  "files": [
+    "dist",
+    "plugin",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "node scripts/sync-plugin-version.mjs --check && npm run build",
+    "dev": "tsc -p tsconfig.json --watch",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "version": "node scripts/sync-plugin-version.mjs && git add plugin/plugin.json"
+  },
+  "keywords": [
+    "antigravity",
+    "agy",
+    "gemini",
+    "translation",
+    "cyrillic",
+    "russian",
+    "tokens",
+    "mcp",
+    "hooks",
+    "plugin",
+    "skills"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@cursor-translate/core": "^0.2.15"
+  },
+  "optionalDependencies": {
+    "@cursor-translate/mcp": "^0.2.15"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}

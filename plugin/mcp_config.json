@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "agy-translate": {
+      "command": "agy-translate-mcp",
+      "args": []
+    }
+  }
+}

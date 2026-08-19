@@ -1,0 +1,18 @@
+# Default glossary for agy-translate: terms that should never be translated.
+terms:
+  - Antigravity
+  - AGY
+  - Gemini
+  - Cursor
+  - Claude
+  - TypeScript
+  - JavaScript
+  - Node.js
+  - npm
+  - GitHub
+  - API
+  - MCP
+  - PreToolUse
+  - PostToolUse
+  - view_file
+  - run_command

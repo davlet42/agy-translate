@@ -1,0 +1,55 @@
+enabled: true
+
+min_cyrillic_ratio: 0.15
+min_chars_to_translate: 120
+
+translator:
+  # Default: Antigravity CLI print mode — uses existing auth/subscription.
+  provider: agy-cli
+  # Fast, cheap Gemini translate tier
+  model: Gemini 3.5 Flash (Low)
+  # When primary hits rate limits or error, doc cache retries with fallback
+  doc_fallback_model: Gemini 3.7 Flash (Low)
+  # Headless/custom options:
+  # provider: claude-cli
+  # provider: openai
+  # model: gpt-5-nano
+
+rules:
+  # Default target rules file for rulesmd command: AGENTS.md | GEMINI.md | both
+  target: AGENTS.md
+
+response:
+  user_language: ru
+  prompt_translate: true
+  back_translate: true
+
+cache:
+  location: global
+  dir: ~/.gemini/translate-proxy/cache
+  # Orphan GC: caches of deleted/renamed docs are removed after 30 days
+  gc_orphan_days: 30
+  # Reuse fresh entries from sibling installs (cursor-translate, claude-translate)
+  share_siblings: true
+  lazy_read_max_chars: 50000
+  lazy_read_max_chunks: 3
+  lazy_read_hints: true
+  # Incremental doc cache: block (default) | paragraph | section | off
+  incremental: block
+
+glossary:
+  file: ~/.gemini/translate-proxy/glossary.yaml
+  merge_project: true
+  project_file: .agents/agy-translate-glossary.yaml
+
+metrics:
+  log_path: ~/.gemini/translate-proxy/metrics.jsonl
+
+safety:
+  fail_open: true
+  max_latency_ms: 2500
+
+hooks:
+  audit_enabled: true
+  lazy_read_timeout_sec: 600
+  lazy_read_mode: path
