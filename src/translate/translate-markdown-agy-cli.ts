@@ -87,8 +87,13 @@ export function translateMarkdownAgyCli(
     const primaryMessage =
       primaryError instanceof Error ? primaryError.message : String(primaryError);
 
-    if (!options.allowFallback || !isQuotaExhaustedError(primaryMessage)) {
-      throw primaryError;
+    if (!options.allowFallback || fallbackModel === primaryModel || isQuotaExhaustedError(primaryMessage)) {
+      return {
+        text: markdown,
+        modelUsed: primaryModel,
+        usedFallback: false,
+        quotaExhausted: true,
+      };
     }
 
     try {
@@ -101,19 +106,12 @@ export function translateMarkdownAgyCli(
         costUsd: run.costUsd,
       };
     } catch (fallbackError: unknown) {
-      const fallbackMessage =
-        fallbackError instanceof Error ? fallbackError.message : String(fallbackError);
-
-      if (isQuotaExhaustedError(fallbackMessage)) {
-        return {
-          text: markdown,
-          modelUsed: primaryModel,
-          usedFallback: true,
-          quotaExhausted: true,
-        };
-      }
-
-      throw fallbackError;
+      return {
+        text: markdown,
+        modelUsed: primaryModel,
+        usedFallback: false,
+        quotaExhausted: true,
+      };
     }
   }
 }

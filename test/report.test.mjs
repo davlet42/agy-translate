@@ -8,6 +8,6 @@ describe("runReport / formatReport", () => {
     assert.ok(result);
     const text = formatReport(result);
     assert.match(text, /agy-translate/);
-    assert.match(text, /Gemini Flash/);
+    assert.match(text, /Gemini 3.7 Flash/);
   });
 });

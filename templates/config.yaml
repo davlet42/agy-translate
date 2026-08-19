@@ -6,10 +6,10 @@ min_chars_to_translate: 120
 translator:
   # Default: Antigravity CLI print mode — uses existing auth/subscription.
   provider: agy-cli
-  # Fast, cheap Gemini translate tier
+  # Fast, cheap Gemini 3.7 Flash translate tier
   model: Gemini 3.7 Flash (Low)
-  # When primary hits rate limits or error, doc cache retries with fallback
-  doc_fallback_model: Gemini 3.1 Pro (Low)
+  # Fails open to original Russian source on rate limit/error (no expensive Pro tier)
+  doc_fallback_model: Gemini 3.7 Flash (Low)
   # Headless/custom options:
   # provider: claude-cli
   # provider: openai

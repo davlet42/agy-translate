@@ -2,7 +2,7 @@
 
 Serve your **Cyrillic markdown docs to Antigravity (agy) as cached English translations** — and cut the context tokens agents burn re-reading them.
 
-Russian prose tokenizes ~1.8–2× worse than English, and agent workflows read the same docs over and over: project wikis, architecture notes, and `AGENTS.md` / `GEMINI.md` on every session. `agy-translate` translates a doc **once per version** on a fast, cheap Gemini tier (`Gemini 3.7 Flash (Low)` via `agy -p`, billed to your existing subscription — no separate API key required) and serves the cached English on every subsequent read.
+Russian prose tokenizes ~1.8–2× worse than English, and agent workflows read the same docs over and over: project wikis, architecture notes, and `AGENTS.md` / `GEMINI.md` on every session. `agy-translate` translates a doc **once per version** on a fast, cheap Gemini tier (`Gemini 3.7 Flash (Low)` via `agy -p`, billed to your existing subscription — no separate API key required) and serves the cached English on every subsequent read. If translation fails or limits are reached, it cleanly fails open to reading the original Russian source without burning expensive Pro tier tokens.
 
 Built on the same engine as [cursor-translate](https://github.com/davlet42/cursor-translate) and [claude-translate](https://github.com/davlet42/claude-translate).
 
@@ -16,7 +16,7 @@ Built on the same engine as [cursor-translate](https://github.com/davlet42/curso
 | **English `AGENTS.md` / `GEMINI.md`** generated from Russian source (`agentsmd` / `geminimd`) | Loaded into **every session** and re-sent with context on every turn — the highest-leverage doc in a repo |
 | **Shared sibling cache** with `cursor-translate` & `claude-translate` | Zero duplicate translation costs between IDEs and CLIs |
 
-Translation is an **investment** (one cheap Gemini spend per doc *version*), serving is the **return** (every read).
+Translation is an **investment** (one cheap Gemini 3.7 Flash spend per doc *version*), serving is the **return** (every read).
 
 Pull your own numbers at any time:
 ```bash
@@ -42,7 +42,7 @@ Then enable the plugin in Antigravity (global config in `~/.gemini/config/plugin
 ```bash
 cd ~/Projects/your-repo
 agy-translate docs --dry-run   # see what would be cached
-agy-translate docs             # warm the EN cache (one-time Gemini spend)
+agy-translate docs             # warm the EN cache (one-time Gemini 3.7 Flash spend)
 agy-translate agentsmd         # English AGENTS.md from Russian AGENTS.ru.md
 agy-translate geminimd         # English GEMINI.md from Russian GEMINI.ru.md
 agy-translate report --days 7  # savings vs costs
@@ -77,7 +77,7 @@ The Antigravity plugin registers a `PreToolUse` lifecycle hook for `view_file`. 
 1. `agy-translate` checks the cache at `~/.gemini/translate-proxy/cache/<project>/...en.md`.
 2. On cache miss or stale source sha256, it translates incrementally using `Gemini 3.7 Flash (Low)`.
 3. The hook returns `{"decision": "allow", "overwrite": {"AbsolutePath": "<cachePath>"}}`, transparently reading the English version.
-4. If translation fails, times out, or quota is exhausted, it fails open to the original Russian file.
+4. If translation fails, times out, or quota is exhausted, it cleanly fails open to the original Russian file without burning expensive Pro tier tokens.
 
 ### 2. `AGENTS.md` / `GEMINI.md` synchronization
 Keep your source of truth in Russian in `AGENTS.ru.md` (or `GEMINI.ru.md`). Run:

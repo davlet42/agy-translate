@@ -10,7 +10,7 @@ Russian and Cyrillic prose tokenizes at approximately 1.8–2.0x higher token co
 When Antigravity attempts to execute the `view_file` tool call on a `.md` or `.mdx` file containing Cyrillic prose:
 - The hook checks `~/.gemini/translate-proxy/cache/<project-slug>/<file>.en.md`.
 - If a fresh translation exists matching the sha256 hash of the source file, the tool argument `AbsolutePath` is transparently rewritten to the cached English markdown path.
-- If the cache is missing or stale, `agy-translate` translates the document via the fast Gemini translate tier (`Gemini 3.5 Flash (Low)` via `agy -p`), saves it to cache, and serves the English version.
+- If the cache is missing or stale, `agy-translate` translates the document via the fast Gemini translate tier (`Gemini 3.7 Flash (Low)` via `agy -p`), saves it to cache, and serves the English version.
 - **Fail-open guarantee**: If translation fails or timeout occurs, the original Russian file is read without interruption.
 
 ### 2. Sibling Cache Sharing

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-08-19
+
+### Changed
+- Standardized translation tier on `Gemini 3.7 Flash (Low)`.
+- Removed expensive `Gemini 3.1 Pro` fallback — now cleanly fails open to original Russian source without burning high-tier tokens.
+- Updated npm description and README documentation.
+
 ## [0.1.1] - 2026-08-19
 
 ### Changed

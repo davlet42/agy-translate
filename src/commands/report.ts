@@ -44,7 +44,7 @@ export async function runReport(args: string[]): Promise<TranslateReportResult> 
 export function formatReport(result: TranslateReportResult): string {
   return formatTranslateReport(result, {
     brand: "agy-translate",
-    translateSpendRateLabel: "$0.14/1M (Gemini Flash)",
+    translateSpendRateLabel: "$0.14/1M (Gemini 3.7 Flash)",
     formatMainAgentSavingsUsd: formatUsdFromMainAgentTokens,
     formatTranslateSpendUsd: formatUsdFromGeminiTranslateTokens,
   });
