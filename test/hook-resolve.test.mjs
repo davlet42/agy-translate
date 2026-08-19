@@ -31,11 +31,11 @@ describe("runResolveFromHookInput (Antigravity PreToolUse contract)", () => {
     writeConfig(true);
   });
 
-  it("registers current Read and legacy view_file matchers", () => {
+  it("registers only the current view_file matcher", () => {
     const hooks = JSON.parse(readFileSync(new URL("../plugin/hooks.json", import.meta.url), "utf8"));
     assert.deepEqual(
       hooks["agy-translate-lazy-read"].PreToolUse.map((entry) => entry.matcher),
-      ["ViewFile", "Read", "view_file"],
+      ["view_file"],
     );
   });
 

@@ -12,7 +12,7 @@ Built on the same engine as [cursor-translate](https://github.com/davlet42/curso
 
 | Mechanism | When it saves |
 |---|---|
-| **Lazy EN doc cache** — `PreToolUse` hook redirects `ViewFile` (shown as `Read` in the UI, plus legacy `view_file`) of a Cyrillic `.md`/`.mdx` to a cached English translation | On every read of every cached doc, in every Antigravity session and subagent |
+| **Lazy EN doc cache** — `PreToolUse` hook redirects `view_file` of a Cyrillic `.md`/`.mdx` to a cached English translation | On every read of every cached doc, in every Antigravity session and subagent |
 | **English `AGENTS.md` / `GEMINI.md`** generated from Russian source (`agentsmd` / `geminimd`) | Loaded into **every session** and re-sent with context on every turn — the highest-leverage doc in a repo |
 | **Shared sibling cache** with `cursor-translate` & `claude-translate` | Zero duplicate translation costs between IDEs and CLIs |
 
@@ -61,7 +61,7 @@ agy-translate report --days 7  # savings vs costs
 | `agy-translate geminimd` | Sync `GEMINI.md` from Russian `GEMINI.ru.md` with sha256 freshness tracking |
 | `agy-translate rulesmd` | Sync either/both rules files (`--target AGENTS.md|GEMINI.md|both`) |
 | `agy-translate resolve <file>` | Check translation status and cache path for a file |
-| `agy-translate hook-resolve` | Stdin handler for Antigravity `PreToolUse` on `Read` / legacy `view_file` |
+| `agy-translate hook-resolve` | Stdin handler for Antigravity `PreToolUse` on `view_file` |
 | `agy-translate prompt "<text>"` | Translate prompt RU→EN or response EN→RU (`--en-ru`) |
 | `agy-translate agent -- "<prompt>"` | Wrapper to execute `agy` with auto-translated prompts |
 | `agy-translate report` | Show token savings, ROI, and translation spend |
@@ -72,8 +72,8 @@ agy-translate report --days 7  # savings vs costs
 
 ## How it works
 
-### 1. Lazy translate on `ViewFile`
-The Antigravity plugin registers `PreToolUse` lifecycle hooks for the current `ViewFile` tool name (shown as `Read` in the UI) and legacy `view_file`. When a tool call reads a Cyrillic `.md` file:
+### 1. Lazy translate on `view_file`
+The Antigravity plugin registers a `PreToolUse` lifecycle hook for the `view_file` tool. When a tool call reads a Cyrillic `.md` file:
 1. `agy-translate` checks the cache at `~/.gemini/translate-proxy/cache/<project>/...en.md`.
 2. On cache miss or stale source sha256, it translates incrementally using `Gemini 3.7 Flash (Low)`.
 3. The hook returns `{"decision": "allow", "overwrite": {"AbsolutePath": "<cachePath>"}}`, transparently reading the English version.

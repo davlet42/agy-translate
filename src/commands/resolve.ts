@@ -38,15 +38,15 @@ export async function runResolve(fileArg: string | undefined, args: string[]): P
   }
 }
 
-// Antigravity PreToolUse hook contract (matchers ViewFile, Read, and legacy view_file):
+// Antigravity PreToolUse hook contract (matcher view_file):
 // stdin carries { toolCall: { name, args: { AbsolutePath, ... } }, workspacePaths, ... }
 // stdout JSON returns { decision: "allow", overwrite: { AbsolutePath: "..." }, reason: "..." }
 export async function runResolveFromHookInput(
   hookInput: Record<string, unknown>,
 ): Promise<Record<string, unknown>> {
   // Support both Antigravity toolCall format and legacy/Claude tool_input format
-  const toolCall = hookInput.toolCall as { name?: string; args?: Record<string, unknown> } | undefined;
-  const toolArgs = toolCall?.args ?? (hookInput.tool_input as Record<string, unknown> | undefined) ?? {};
+  const toolCall = hookInput.toolCall as { name?: string; args?: Record<string, unknown>; arguments?: Record<string, unknown> } | undefined;
+  const toolArgs = toolCall?.args ?? toolCall?.arguments ?? (hookInput.tool_input as Record<string, unknown> | undefined) ?? {};
 
   const filePath =
     (toolArgs.AbsolutePath as string | undefined) ??

@@ -2,26 +2,6 @@
   "agy-translate-lazy-read": {
     "PreToolUse": [
       {
-        "matcher": "ViewFile",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./hooks/translate-lazy-read.sh",
-            "timeout": 600
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./hooks/translate-lazy-read.sh",
-            "timeout": 600
-          }
-        ]
-      },
-      {
         "matcher": "view_file",
         "hooks": [
           {

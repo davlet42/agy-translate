@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2026-08-19
+
+### Fixed
+- Parse Antigravity `toolCall.args` / `toolCall.arguments` and `workspacePaths` for lazy reads.
+- Register only Antigravity's actual `view_file` hook matcher; remove unsupported `ViewFile` and `Read` matchers.
+
 ## [0.1.4] - 2026-08-19
 
 ### Fixed
 - Register the plugin in Agy's `import_manifest.json` so hooks are actually loaded.
-- Match the current internal `ViewFile` tool name (shown as `Read` in the UI) and retain legacy spellings.
+- Use the registered plugin's bundled hook and MCP commands for GUI-launched Agy sessions.
 
 ## [0.1.3] - 2026-08-19
 
