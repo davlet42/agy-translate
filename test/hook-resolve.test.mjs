@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { before, describe, it } from "node:test";
@@ -29,6 +29,14 @@ function writeConfig(enabled) {
 describe("runResolveFromHookInput (Antigravity PreToolUse contract)", () => {
   before(() => {
     writeConfig(true);
+  });
+
+  it("registers current Read and legacy view_file matchers", () => {
+    const hooks = JSON.parse(readFileSync(new URL("../plugin/hooks.json", import.meta.url), "utf8"));
+    assert.deepEqual(
+      hooks["agy-translate-lazy-read"].PreToolUse.map((entry) => entry.matcher),
+      ["Read", "view_file"],
+    );
   });
 
   it("returns decision: allow when toolCall args has no file", async () => {

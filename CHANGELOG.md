@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-08-19
+
+### Fixed
+- Register the current Agy `Read` tool matcher so lazy translation and shared-cache reads work in current headless and interactive sessions.
+- Keep the legacy `view_file` matcher for older Agy installations.
+
 ## [0.1.2] - 2026-08-19
 
 ### Changed
