@@ -135,7 +135,7 @@ async function handleInit(initArgs: string[]): Promise<void> {
   }
   console.log("");
   console.log("Translate tier default model: Gemini 3.7 Flash (Low) (via agy -p --model)");
-  console.log("Lazy read: PreToolUse Read/view_file hooks rewrite AbsolutePath to the EN cache");
+  console.log("Lazy read: PreToolUse ViewFile/Read/view_file hooks rewrite AbsolutePath to the EN cache");
   console.log("Rules: run `agy-translate agentsmd` or `agy-translate geminimd` to keep English rules synced");
 }
 
@@ -151,7 +151,7 @@ Usage:
   agy-translate geminimd [path] [--check] [--force] [--dry-run]
   agy-translate rulesmd [path] [--check] [--force] [--dry-run] [--target AGENTS.md|GEMINI.md|both]
   agy-translate resolve <file> [--json] [--project slug] [--force]
-  agy-translate hook-resolve                    (stdin JSON → PreToolUse Read/view_file)
+  agy-translate hook-resolve                    (stdin JSON → PreToolUse ViewFile/Read/view_file)
   agy-translate prompt "<text>" [--json] [--force] [--stdin] [--en-ru]
   agy-translate agent [agy flags] -- "<prompt>"
   agy-translate report [--days 7] [--backfill-costs] [--project slug]

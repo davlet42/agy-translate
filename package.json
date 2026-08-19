@@ -1,6 +1,6 @@
 {
   "name": "agy-translate",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Token-saving Cyrillic markdown translation layer for Antigravity (agy): fast Gemini 3.7 Flash translate tier, lazy EN doc cache via PreToolUse hook, AGENTS.md / GEMINI.md sync, MCP and skills",
   "license": "MIT",
   "type": "module",

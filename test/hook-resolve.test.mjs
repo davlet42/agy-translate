@@ -35,8 +35,20 @@ describe("runResolveFromHookInput (Antigravity PreToolUse contract)", () => {
     const hooks = JSON.parse(readFileSync(new URL("../plugin/hooks.json", import.meta.url), "utf8"));
     assert.deepEqual(
       hooks["agy-translate-lazy-read"].PreToolUse.map((entry) => entry.matcher),
-      ["Read", "view_file"],
+      ["ViewFile", "Read", "view_file"],
     );
+  });
+
+  it("merges the Agy import manifest without dropping unrelated plugins", async () => {
+    const { mergeAgyImportManifest } = await import("../dist/commands/init.js");
+    const manifest = mergeAgyImportManifest(
+      { imports: [{ name: "Figma", source: "gemini-cli", components: ["mcpServers"] }] },
+      "agy-translate",
+      ["skills", "mcpServers", "hooks"],
+    );
+    assert.equal(manifest.imports.length, 2);
+    assert.equal(manifest.imports[0].name, "Figma");
+    assert.equal(manifest.imports[1].source, "antigravity");
   });
 
   it("returns decision: allow when toolCall args has no file", async () => {

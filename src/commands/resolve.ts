@@ -38,7 +38,7 @@ export async function runResolve(fileArg: string | undefined, args: string[]): P
   }
 }
 
-// Antigravity PreToolUse hook contract (matchers Read and legacy view_file):
+// Antigravity PreToolUse hook contract (matchers ViewFile, Read, and legacy view_file):
 // stdin carries { toolCall: { name, args: { AbsolutePath, ... } }, workspacePaths, ... }
 // stdout JSON returns { decision: "allow", overwrite: { AbsolutePath: "..." }, reason: "..." }
 export async function runResolveFromHookInput(

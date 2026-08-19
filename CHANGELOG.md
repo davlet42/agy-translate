@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-08-19
+
+### Fixed
+- Register the plugin in Agy's `import_manifest.json` so hooks are actually loaded.
+- Match the current internal `ViewFile` tool name (shown as `Read` in the UI) and retain legacy spellings.
+
 ## [0.1.3] - 2026-08-19
 
 ### Fixed

@@ -1,4 +1,4 @@
-import { copyFile, mkdir, writeFile, chmod, access, symlink } from "node:fs/promises";
+import { copyFile, mkdir, writeFile, readFile, chmod, access, symlink } from "node:fs/promises";
 import { constants, existsSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -161,6 +161,21 @@ async function copyDir(src: string, dest: string): Promise<void> {
   }
 }
 
+export function mergeAgyImportManifest(input: Record<string, unknown>, name: string, components: string[]): Record<string, unknown> {
+  const imports = Array.isArray(input.imports)
+    ? input.imports.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === "object" && !Array.isArray(item)))
+    : [];
+  const existing = imports.find((item) => item.name === name);
+  const merged = {
+    ...(existing ?? {}),
+    name,
+    source: "antigravity",
+    importedAt: typeof existing?.importedAt === "string" ? existing.importedAt : new Date().toISOString(),
+    components: [...new Set([...(Array.isArray(existing?.components) ? existing.components.map(String) : []), ...components])],
+  };
+  return { ...input, imports: [...imports.filter((item) => item.name !== name), merged] };
+}
+
 async function installGlobalPlugin(dryRun: boolean): Promise<boolean> {
   const globalPluginsDir = join(homedir(), ".gemini", "config", "plugins");
   const targetPluginDir = join(globalPluginsDir, "agy-translate");
@@ -178,7 +193,13 @@ async function installGlobalPlugin(dryRun: boolean): Promise<boolean> {
       } catch {
         await copyDir(sourcePluginDir, targetPluginDir);
       }
+    } else {
+      await copyDir(sourcePluginDir, targetPluginDir);
     }
+    const manifestPath = join(homedir(), ".gemini", "config", "import_manifest.json");
+    let manifest: Record<string, unknown> = {};
+    try { manifest = JSON.parse(await readFile(manifestPath, "utf8")) as Record<string, unknown>; } catch { /* create below */ }
+    await writeFile(manifestPath, JSON.stringify(mergeAgyImportManifest(manifest, "agy-translate", ["skills", "mcpServers", "hooks"]), null, 2) + "\n", "utf8");
   }
   return true;
 }
